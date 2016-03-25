@@ -6,6 +6,7 @@ using namespace std;
 int main()
 {
 	int i = 0;
+	int index = 0;
 
 	Array array1(5);
 
@@ -14,7 +15,8 @@ int main()
 		array1.SetValue(i, i);
 	}
 
-	Array array2 = array1;
+	Array array2(5);
+	array2 = array1;
 
 	cout << "array1" << endl;
 
@@ -29,6 +31,36 @@ int main()
 	{
 		cout << array2.GetValue(i) << endl;
 	}
+
+	cout << "----------operator== test----------" << endl;
+
+	if(array1 == array2)
+	{
+		cout << "array1 = array2" << endl;
+	}
+	else
+	{
+		cout << "array1 != array2" <<endl;
+	}
+
+	cout << "----------operator!= test----------" << endl;
+
+	if(array1 != array2)
+	{
+		cout << "array1 != array2" << endl;
+	}
+	else
+	{
+		cout << "array1 = array2" <<endl;
+	}
+
+	cout << "----------operator[] test----------" << endl;
+	
+	for(index = 0; index < array1.GetLength(); index++)
+	{
+		cout << array1[index] << endl;
+	}
+	
 
 	return 0;
 }
