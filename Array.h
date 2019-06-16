@@ -15,8 +15,8 @@ public:
 	bool operator==(Array& obj);
 	bool operator!=(Array& obj);
 
-	void SetValue(int index, int value);
-	int GetValue(int index);
+	bool SetValue(int index, int value);
+	bool GetValue(int index, int& value);
 	~Array();
 };
 

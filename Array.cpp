@@ -3,10 +3,17 @@
 
 using namespace std;
 
+//TODO: Two Phase Construct is needed
 Array::Array(int length)
 {
-        this->length = length;
-        arrayPtr = new int[this->length];
+	arrayPtr = new int[length];
+	
+	for(int i = 0; i < length; i++)
+	{
+		arrayPtr[i] = 0;
+	}
+	
+	this->length = length;
 }
 
 Array::Array(const Array& destArray)
@@ -24,12 +31,10 @@ Array::Array(const Array& destArray)
 	}
 }
 
-
 int Array::GetLength()
 {
 	return length;
 }
-
 
 int& Array::operator[](int i)
 {
@@ -118,14 +123,28 @@ bool Array::operator!=(Array& obj)
 
 }
 
-void Array::SetValue(int index, int value)
+bool Array::SetValue(int index, int value)
 {
-        arrayPtr[index] = value;
+	bool ret = (0 <= index) && (index < length); 
+	
+	if(ret)
+	{
+		arrayPtr[index] = value;
+	}
+	
+	return ret;
 }
 
-int Array::GetValue(int index)
+bool Array::GetValue(int index, int& value)
 {
-        return arrayPtr[index];
+	bool ret = (0 <= index) && (index < length); 
+	
+	if(ret)
+	{
+		value = arrayPtr[index];
+	}
+	
+	return ret;
 }
 
 Array::~Array()
