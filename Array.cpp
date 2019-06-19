@@ -6,14 +6,38 @@ using namespace std;
 //TODO: Two Phase Construct is needed
 Array::Array(int length)
 {
+	this->length = length;
+}
+
+bool Array::Construct()
+{
 	arrayPtr = new int[length];
 	
-	for(int i = 0; i < length; i++)
+	if(arrayPtr != NULL)
 	{
-		arrayPtr[i] = 0;
+		for(int i = 0; i < length; i++)
+		{
+			arrayPtr[i] = 0;
+		}
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+Array* Array::NewInstance(int length)
+{
+	Array* ret = new Array(length);
+	
+	if((ret != NULL) && (ret->Construct() == false))
+	{
+		delete ret;
+		ret = NULL;
 	}
 	
-	this->length = length;
+	return ret;
 }
 
 Array::Array(const Array& destArray)

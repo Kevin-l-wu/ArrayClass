@@ -8,7 +8,23 @@ int main()
 	int i = 0;
 	int index = 0;
 	int getValue = 0;
+	
+	Array* pArray1 = Array::NewInstance(5);
+	
+	for(i = 0; i < pArray1->GetLength(); i++)
+	{
+		pArray1->SetValue(i, i);
+	}
+	
+	cout << "array1" << endl;
 
+	for(i = 0; i <pArray1->GetLength(); i++)
+	{
+		pArray1->GetValue(i, getValue);
+		cout << getValue << endl;
+	}
+	
+/*
 	Array array1(5);
 
 	for(i = 0; i < array1.GetLength(); i++)
@@ -63,6 +79,6 @@ int main()
 	{
 		cout << array1[index] << endl;
 	}
-	
+	*/
 	return 0;
 }

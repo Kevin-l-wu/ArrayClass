@@ -6,8 +6,10 @@ class Array
 private:
 	int length;
 	int* arrayPtr;
-public:
 	Array(int length);
+	bool Construct();
+public:
+	static Array* NewInstance(int length);
 	Array(const Array& destArray);
 	int GetLength();
 	int& operator[](int i);
