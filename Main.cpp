@@ -16,11 +16,23 @@ int main()
 		pArray1->SetValue(i, i);
 	}
 	
-	cout << "array1" << endl;
+	cout << "array1:" << endl;
 
-	for(i = 0; i <pArray1->GetLength(); i++)
+	for(i = 0; i < pArray1->GetLength(); i++)
 	{
 		pArray1->GetValue(i, getValue);
+		cout << getValue << endl;
+	}
+	
+	Array* pArray2 = pArray1;
+	
+	cout << "pArray1 = " << pArray1 << endl;
+	cout << "pArray2 = " << pArray2 << endl;
+	
+	cout << "array2:" << endl;
+	for(i = 0; i < pArray2->GetLength(); i++)
+	{
+		pArray2->GetValue(i, getValue);
 		cout << getValue << endl;
 	}
 	
