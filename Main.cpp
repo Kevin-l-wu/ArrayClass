@@ -6,91 +6,49 @@ using namespace std;
 int main()
 {
 	int i = 0;
-	int index = 0;
 	int getValue = 0;
 	
 	Array* pArray1 = Array::NewInstance(5);
-	
-	for(i = 0; i < pArray1->GetLength(); i++)
-	{
-		pArray1->SetValue(i, i);
-	}
-	
-	cout << "array1:" << endl;
-
-	for(i = 0; i < pArray1->GetLength(); i++)
-	{
-		pArray1->GetValue(i, getValue);
-		cout << getValue << endl;
-	}
-	
-	Array* pArray2 = pArray1;
+	Array* pArray2 = Array::NewInstance(10);
 	
 	cout << "pArray1 = " << pArray1 << endl;
 	cout << "pArray2 = " << pArray2 << endl;
 	
-	cout << "array2:" << endl;
-	for(i = 0; i < pArray2->GetLength(); i++)
+	if(pArray1 && pArray2)
 	{
-		pArray2->GetValue(i, getValue);
-		cout << getValue << endl;
+		Array& array1 = pArray1->Self();
+		Array& array2 = pArray2->Self();
+		
+		for(i = 0; i < array1.GetLength(); i++)
+		{
+			array1[i] = i;
+		}
+		
+		for(i = 0; i < array1.GetLength(); i++)
+		{
+			cout << array1[i] << endl;
+		}
+		
+		for(i = 0; i < array2.GetLength(); i++)
+		{
+			array2[i] = i + 10;
+		}
+		
+		for(i = 0; i < array2.GetLength(); i++)
+		{
+			cout << array2[i] << endl;
+		}
+		
+		array2 = array1;
+		
+		for(i = 0; i < array2.GetLength(); i++)
+		{
+			cout << array2[i] << endl;
+		}
 	}
+
+	delete pArray2;
+	delete pArray1;
 	
-/*
-	Array array1(5);
-
-	for(i = 0; i < array1.GetLength(); i++)
-	{
-		array1.SetValue(i, i);
-	}
-
-	Array array2(5);
-	array2 = array1;
-
-	cout << "array1" << endl;
-
-	for(i = 0; i < array1.GetLength(); i++)
-	{
-		array1.GetValue(i, getValue);
-		cout << getValue << endl;
-	}
-
-	cout << "array2" << endl;
-
-	for(i = 0; i < array2.GetLength(); i++)
-	{
-		array2.GetValue(i, getValue);
-		cout << getValue << endl;
-	}
-
-	cout << "----------operator== test----------" << endl;
-
-	if(array1 == array2)
-	{
-		cout << "array1 = array2" << endl;
-	}
-	else
-	{
-		cout << "array1 != array2" <<endl;
-	}
-
-	cout << "----------operator!= test----------" << endl;
-
-	if(array1 != array2)
-	{
-		cout << "array1 != array2" << endl;
-	}
-	else
-	{
-		cout << "array1 = array2" <<endl;
-	}
-
-	cout << "----------operator[] test----------" << endl;
-	
-	for(index = 0; index < array1.GetLength(); index++)
-	{
-		cout << array1[index] << endl;
-	}
-	*/
 	return 0;
 }

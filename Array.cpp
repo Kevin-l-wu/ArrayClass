@@ -40,19 +40,24 @@ Array* Array::NewInstance(int length)
 	return ret;
 }
 
-Array::Array(const Array& destArray)
+Array::Array(const Array& obj)
 {
-	cout << "Array::Array(const Array& destArray)" << endl;
+	cout << "Array::Array(const Array& obj)" << endl;
 
 	int index = 0;
 
-	this->length = destArray.length;
+	this->length = obj.length;
 	this->arrayPtr = new int[this->length];
 
 	for(index = 0; index < this->length; index++)
 	{
-		this->arrayPtr[index] = destArray.arrayPtr[index];
+		this->arrayPtr[index] = obj.arrayPtr[index];
 	}
+}
+
+Array& Array::Self()
+{
+	return *this;
 }
 
 int Array::GetLength()
@@ -65,23 +70,27 @@ int& Array::operator[](int i)
 	return this->arrayPtr[i];
 }
 
-Array& Array::operator=(Array& destArray)
+Array& Array::operator=(Array& obj)
 {
-	cout << "Array& Array::operator=(Array& destArray)" << endl;
+	if(this != &obj)
+	{	
+		int* pointer = new int[obj.length];
+		
+		if(pointer != NULL)
+		{
+			for(int index = 0; index < obj.length; index++)
+			{
+				pointer[index] = obj.arrayPtr[index];
+			}
 
-	int index = 0;
-
-	if(this->length != 0)
-	{
-		delete[] this->arrayPtr;
-	}
-
-	this->length = destArray.length;
-	this->arrayPtr = new int[this->length];
-
-	for(index = 0; index < this->length; index++)
-	{
-		this->arrayPtr[index] = destArray.arrayPtr[index];
+			if(this->arrayPtr != NULL)
+			{
+				delete[] this->arrayPtr;
+			}
+			
+			this->length = obj.length;
+			this->arrayPtr = pointer;
+		}		
 	}
 
 	return *this;
@@ -173,5 +182,9 @@ bool Array::GetValue(int index, int& value)
 
 Array::~Array()
 {
-        delete[] arrayPtr;
+	if(arrayPtr != NULL)
+	{
+		delete[] arrayPtr;
+		arrayPtr = NULL;
+	}
 }
