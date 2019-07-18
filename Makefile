@@ -1,5 +1,5 @@
-Test : Main.o Array.o
-	g++ Main.o Array.o -o Test
+Test : Main.o
+	g++ Main.o -o Test
 	
 .PHONY:clean
 clean:

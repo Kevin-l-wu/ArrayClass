@@ -1,35 +1,51 @@
-#include <iostream>
-#include "Array.h"
+#ifndef _HEAP_ARRAY_H_
+#define _HEAP_ARRAY_H_
 
-using namespace std;
+//Two phase construct do not support copy construct
+template <typename T>
+class HeapArray
+{
+private:
+	int length;
+	T* arrayPtr;
+	HeapArray(int length);
+	bool Construct();
+public:
+	static HeapArray<T>* NewInstance(int length);
+	HeapArray(const HeapArray<T>& obj);
+	HeapArray<T>& Self();
+	int GetLength();
+	
+	T& operator[](int i);
+	HeapArray<T>& operator=(HeapArray<T>& obj);
+	bool operator==(HeapArray<T>& obj);
+	bool operator!=(HeapArray<T>& obj);
 
-//TODO: Two Phase Construct is needed
-Array::Array(int length)
+	bool SetValue(int index, T value);
+	bool GetValue(int index, T& value);
+	~HeapArray();
+};
+
+
+template <typename T>
+HeapArray<T>::HeapArray(int length)
 {
 	this->length = length;
 }
 
-bool Array::Construct()
+
+template <typename T>
+bool HeapArray<T>::Construct()
 {
-	arrayPtr = new int[length];
+	arrayPtr = new T[length];
 	
-	if(arrayPtr != NULL)
-	{
-		for(int i = 0; i < length; i++)
-		{
-			arrayPtr[i] = 0;
-		}
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return (arrayPtr != NULL);
 }
 
-Array* Array::NewInstance(int length)
+template <typename T>
+HeapArray<T>* HeapArray<T>::NewInstance(int length)
 {
-	Array* ret = new Array(length);
+	HeapArray<T>* ret = new HeapArray<T>(length);
 	
 	if((ret != NULL) && (ret->Construct() == false))
 	{
@@ -40,9 +56,10 @@ Array* Array::NewInstance(int length)
 	return ret;
 }
 
-Array::Array(const Array& obj)
+template <typename T>
+HeapArray<T>::HeapArray(const HeapArray& obj)
 {
-	cout << "Array::Array(const Array& obj)" << endl;
+//	cout << "HeapArray::HeapArray(const HeapArray& obj)" << endl;
 
 	int index = 0;
 
@@ -55,22 +72,26 @@ Array::Array(const Array& obj)
 	}
 }
 
-Array& Array::Self()
+template <typename T>
+HeapArray<T>& HeapArray<T>::Self()
 {
 	return *this;
 }
 
-int Array::GetLength()
+template <typename T>
+int HeapArray<T>::GetLength()
 {
 	return length;
 }
 
-int& Array::operator[](int i)
+template <typename T>
+T& HeapArray<T>::operator[](int i)
 {
 	return this->arrayPtr[i];
 }
 
-Array& Array::operator=(Array& obj)
+template <typename T>
+HeapArray<T>& HeapArray<T>::operator=(HeapArray<T>& obj)
 {
 	if(this != &obj)
 	{	
@@ -96,7 +117,8 @@ Array& Array::operator=(Array& obj)
 	return *this;
 }
 
-bool Array::operator==(Array& obj)
+template <typename T>
+bool HeapArray<T>::operator==(HeapArray& obj)
 {
 	bool ret = false;
 	int index = 0;
@@ -126,7 +148,8 @@ bool Array::operator==(Array& obj)
 	return ret;
 }
 
-bool Array::operator!=(Array& obj)
+template <typename T>
+bool HeapArray<T>::operator!=(HeapArray<T>& obj)
 {
 	bool ret = true;
 	int index = 0;	
@@ -156,7 +179,8 @@ bool Array::operator!=(Array& obj)
 
 }
 
-bool Array::SetValue(int index, int value)
+template <typename T>
+bool HeapArray<T>::SetValue(int index, T value)
 {
 	bool ret = (0 <= index) && (index < length); 
 	
@@ -168,7 +192,8 @@ bool Array::SetValue(int index, int value)
 	return ret;
 }
 
-bool Array::GetValue(int index, int& value)
+template <typename T>
+bool HeapArray<T>::GetValue(int index, T& value)
 {
 	bool ret = (0 <= index) && (index < length); 
 	
@@ -180,7 +205,8 @@ bool Array::GetValue(int index, int& value)
 	return ret;
 }
 
-Array::~Array()
+template <typename T>
+HeapArray<T>::~HeapArray()
 {
 	if(arrayPtr != NULL)
 	{
@@ -188,3 +214,5 @@ Array::~Array()
 		arrayPtr = NULL;
 	}
 }
+
+#endif

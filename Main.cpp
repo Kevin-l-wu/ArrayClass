@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Array.h"
+#include "HeapArray.h"
 
 using namespace std;
 
@@ -7,17 +7,17 @@ int main()
 {
 	int i = 0;
 	int getValue = 0;
-	
-	Array* pArray1 = Array::NewInstance(5);
-	Array* pArray2 = Array::NewInstance(10);
+
+	HeapArray<int>* pArray1 = HeapArray<int>::NewInstance(5);
+	HeapArray<int>* pArray2 = HeapArray<int>::NewInstance(10);
 	
 	cout << "pArray1 = " << pArray1 << endl;
 	cout << "pArray2 = " << pArray2 << endl;
-	
+
 	if(pArray1 && pArray2)
 	{
-		Array& array1 = pArray1->Self();
-		Array& array2 = pArray2->Self();
+		HeapArray<int>& array1 = pArray1->Self();
+		HeapArray<int>& array2 = pArray2->Self();
 		
 		for(i = 0; i < array1.GetLength(); i++)
 		{
@@ -49,6 +49,6 @@ int main()
 
 	delete pArray2;
 	delete pArray1;
-	
+
 	return 0;
 }
